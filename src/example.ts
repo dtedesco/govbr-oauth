@@ -11,7 +11,7 @@ const config = {
   SCOPES: "openid+email+phone+profile",
   CLIENT_ID: "mtcidadao.mt.gov.br",
   SECRET:
-    "bqbcionIj9noviuRphzzp9feMZV7VmF5yW_tQL3jwaGL2wKp6_gLu4r0n_swq8KV8UacAt4YjuAt9tHh5YwaQw",
+      "bqbcionIj9noviuRphzzp9feMZV7VmF5yW_tQL3jwaGL2wKp6_gLu4r0n_swq8KV8UacAt4YjuAt9tHh5YwaQw",
   RESPONSE_TYPE: "code"
 };
 

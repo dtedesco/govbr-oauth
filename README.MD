@@ -11,7 +11,11 @@ https://manual-roteiro-integracao-login-unico.servicos.gov.br/pt/stable/index.ht
 Exemplo de uso em express:
 
 ```
-import govbrOauth from "govbr-oauth";
+const express = require("express");
+const govbrOauth = require("govbr-oauth");
+
+const app = express();
+const port = 3000;
 
 // Paramentos de configuração fornecidos pelo GOV.BR
 const config = {
@@ -37,6 +41,8 @@ app.get("/callback", async (req, res) => {
   //retorna o token com os dados do usuário
   res.send(token);
 });
+
+app.listen(port, () => console.log(`Example app listening on port ${port}!`));
 ```
 
 
