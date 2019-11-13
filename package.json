@@ -1,6 +1,6 @@
 {
   "name": "govbr-oauth",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Serviço de autenticação no gov.br",
   "main": "src/index.js",
   "scripts": {
