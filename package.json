@@ -1,13 +1,15 @@
 {
   "name": "govbr-oauth",
-  "version": "1.0.1",
+  "version": "1.1.2",
   "description": "Serviço de autenticação no gov.br",
-  "main": "src/index.js",
+  "main": "dist/index.js",
+  "types": "lib/index.d.ts",
   "scripts": {
     "test": "jest --coverage",
     "test_dev": "jest --watchAll",
-    "dev": "ts-node-dev --respawn --transpileOnly ./src/example.ts",
-    "build": "tsc"
+    "build": "tsc",
+    "prepare": "npm run build",
+    "prepublishOnly": "npm test"
   },
   "repository": {
     "type": "git",

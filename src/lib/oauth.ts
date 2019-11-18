@@ -61,7 +61,6 @@ export const getToken = async (
       method: "post",
       url: url,
       headers: {
-        "Content-Type": ":application/x-www-form-urlencoded",
         Authorization: `Basic ${base64.encode(
           config.CLIENT_ID + ":" + config.SECRET
         )}`
@@ -97,7 +96,6 @@ export const getCredentialType = async (
       method: "get",
       url: url,
       headers: {
-        "Content-Type": ":application/x-www-form-urlencoded",
         Authorization: `Bearer ${accessToken}`
       }
     });
