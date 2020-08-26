@@ -1,5 +1,4 @@
-import axios from "axios";
-import MockAdapter from "axios-mock-adapter";
+import fetchMock from "fetch-mock";
 
 import { authorizeURL, getToken } from "./oauth";
 
@@ -14,6 +13,7 @@ const CONFIG_TEST = {
 };
 
 describe("Gerando URL de autenticação (authorizeURL)", () => {
+  afterEach(() => fetchMock.reset());
   test("Deve verificar se existe configuração", () => {
     //@ts-ignore
     expect(authorizeURL()).toEqual(false);
@@ -32,6 +32,7 @@ describe("Gerando URL de autenticação (authorizeURL)", () => {
 });
 
 describe("Obtendo token do servidor (getToken)", () => {
+  afterEach(() => fetchMock.reset());
   test("Deve verificar os parametros de entrada", () => {
     expect.assertions(1);
     //@ts-ignore
@@ -44,20 +45,19 @@ describe("Obtendo token do servidor (getToken)", () => {
     return getToken().then(data => expect(data).toEqual(false));
   });
 
-  test("Deve validar um token inválido", () => {
+  test("Deve verificar um token inválido", () => {
     expect.assertions(1);
     //@ts-ignore
     return getToken(CONFIG_TEST, "123").then(data =>
-      expect(data).toEqual(false)
+      expect(data).toEqual( {"error": "unauthorized", "error_description": "Bad credentials"})
     );
   });
 
-  it("Deve validar um token válido", () => {
+  it("Deve retornar um token válido", () => {
     expect.assertions(1);
 
     const code = "XPTO";
     // const data = { response: true };
-    const mock = new MockAdapter(axios);
 
     const data = {
       access_token:
@@ -88,11 +88,10 @@ describe("Obtendo token do servidor (getToken)", () => {
       }
     };
 
-    mock
-      .onPost(
-        `${CONFIG_TEST.URL_PROVIDER}/token?grant_type=authorization_code&code=${code}&redirect_uri=${CONFIG_TEST.REDIRECT_URI}`
-      )
-      .reply(200, data);
+    fetchMock.post(
+      `${CONFIG_TEST.URL_PROVIDER}/token?grant_type=authorization_code&code=${code}&redirect_uri=${CONFIG_TEST.REDIRECT_URI}`,
+      data
+    );
 
     //@ts-ignore
     return getToken(CONFIG_TEST, code).then(res => expect(res).toEqual(data));
